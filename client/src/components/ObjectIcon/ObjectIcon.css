@@ -7,7 +7,12 @@
     box-shadow: -1px 1px 2px 0 gray;
     margin: 1rem;
     padding: 5px;
+    transition: all 0.3s;
+}
 
+.object-icon.selected {
+    border: 2px solid red;
+    box-shadow: -4px 4px 4px 0 black;
 }
 
 .object-icon img {

@@ -14,7 +14,9 @@ export default function PlayerPanel(props) {
 				<ObjectIcon
 					key={img[OBJ]}
 					id={props.id + img[OBJ]}
+					obj={img[OBJ]}
 					image={img[Image]}
+					objSelected={props.objSelected}
 					click={() => props.click(img[OBJ])}
 				/>
 			))}

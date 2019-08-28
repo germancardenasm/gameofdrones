@@ -22,6 +22,10 @@ export default class Game extends Component {
 	};
 
 	onClickObject = obj => {
+		this.setState({ player1Move: obj, playerTurn: 2 });
+	};
+
+	onSelectObject = obj => {
 		if (this.state.playerTurn === 1) {
 			this.setState({ player1Move: obj, playerTurn: 2 });
 		} else {
@@ -82,11 +86,13 @@ export default class Game extends Component {
 				<PanelPlayer
 					id='panel1'
 					player={this.state.player1}
+					objSelected={this.state.player1Move}
 					click={this.onClickObject}
 				/>
 				<PanelPlayer
 					id='panel2'
 					player={this.state.player2}
+					objSelected={this.state.player2Move}
 					click={this.onClickObject}
 				/>
 			</>
