@@ -8,13 +8,15 @@ import { players } from '../../assets/config';
 export default class Game extends Component {
 	state = {
 		start: true,
-		player1: '',
-		player2: '',
+		player1: 'German',
+		player2: 'Paola',
 		player1Move: '',
 		player2Move: '',
+		player1Wins: 0,
+		player2Wins: 0,
 		playerTurn: 1,
 		winner: '',
-		endGame: 0
+		endGame: false
 	};
 
 	onChangeInput = props => {
@@ -24,35 +26,43 @@ export default class Game extends Component {
 		this.setState({ start: false });
 	};
 	onClickObject = obj => {
-		debugger;
 		if (this.state.playerTurn === 1) {
 			this.setState({ player1Move: obj, playerTurn: 2 });
 		} else {
-			this.setState({ player2Move: obj }, () => {
-				debugger;
-				const winner = this.selectWinner();
-				this.setState({ winner: winner, endGame: 1 });
-				debugger;
-			});
+			let winner = this.selectWinner(this.state.player1Move, obj);
+			if (winner === undefined) {
+				this.setState((prevState, props) => ({
+					winner: undefined,
+					endGame: true,
+					playerTurn: 1
+				}));
+				return null;
+			}
+			const winnerKey = winner === '1' ? 'player1Wins' : 'player2Wins';
+			this.setState((prevState, props) => ({
+				winner: winner,
+				endGame: true,
+				playerTurn: 1,
+				[winnerKey]: prevState[winnerKey] + 1
+			}));
 		}
 	};
 
-	selectWinner = () => {
+	selectWinner = (player1Move, player2Move) => {
 		let winner;
 		console.log('entro');
-		const s = this.state;
-		if (s.player1Move === s.player2Move) return undefined;
-		if (s.player1Move === 'rock' && s.player2Move === 'sissors') {
+		if (player1Move === player2Move) return undefined;
+		if (player1Move === 'rock' && player2Move === 'sissors') {
 			return '1';
-		} else if (s.player1Move === 'rock' && s.player2Move === 'paper') {
+		} else if (player1Move === 'rock' && player2Move === 'paper') {
 			return '2';
-		} else if (s.player1Move === 'paper' && s.player2Move === 'rock') {
+		} else if (player1Move === 'paper' && player2Move === 'rock') {
 			return '1';
-		} else if (s.player1Move === 'paper' && s.player2Move === 'sissors') {
+		} else if (player1Move === 'paper' && player2Move === 'sissors') {
 			return '2';
-		} else if (s.player1Move === 'sissors' && s.player2Move === 'paper') {
+		} else if (player1Move === 'sissors' && player2Move === 'paper') {
 			return '1';
-		} else if (s.player1Move === 'sissors' && s.player2Move === 'rock') {
+		} else if (player1Move === 'sissors' && player2Move === 'rock') {
 			return '2';
 		}
 	};
@@ -84,7 +94,10 @@ export default class Game extends Component {
 				<header className='game-header'>
 					<h1>Game of Drones</h1>
 				</header>
-				<Results />
+				<Results
+					player1={this.state.player1Wins}
+					player2={this.state.player2Wins}
+				/>
 				<main>{mainContent}</main>
 			</div>
 		);
