@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import './Game.css';
 import PanelPlayer from '../PlayerPanel/PlayerPanel';
 import Score from '../Score/Score';
 import PlayersForm from '../PlayersForm/PlayersForm';
+import Results from '../Results/Results';
 import { players } from '../../assets/config';
+import './Game.css';
 
 export default class Game extends Component {
 	state = {
@@ -75,7 +76,7 @@ export default class Game extends Component {
 	};
 
 	render() {
-		const mainContent = this.state.start ? (
+		let mainContent = this.state.start ? (
 			<PlayersForm
 				{...this.state}
 				onChange={this.onChangeInput}
@@ -95,6 +96,14 @@ export default class Game extends Component {
 				/>
 			</>
 		);
+
+		if (this.state.endGame) {
+			const winner =
+				this.state.winner === 1
+					? this.state.player1
+					: this.state.player2;
+			mainContent = <Results winner={winner}></Results>;
+		}
 
 		return (
 			<div className='game-board'>
