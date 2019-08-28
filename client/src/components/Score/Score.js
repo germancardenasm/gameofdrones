@@ -1,7 +1,7 @@
 import React from 'react';
-import './Results.css';
+import './Score.css';
 
-const Results = props => {
+const Score = props => {
 	return (
 		<div className='results'>
 			<h3>Score</h3>
@@ -11,4 +11,4 @@ const Results = props => {
 	);
 };
 
-export default Results;
+export default Score;

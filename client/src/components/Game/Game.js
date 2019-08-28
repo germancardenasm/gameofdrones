@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Game.css';
 import PanelPlayer from '../PlayerPanel/PlayerPanel';
-import Results from '../Results/Results';
+import Score from '../Score/Score';
 import PlayersForm from '../PlayersForm/PlayersForm';
 import { players } from '../../assets/config';
 
@@ -33,18 +33,25 @@ export default class Game extends Component {
 			if (winner === undefined) {
 				this.setState((prevState, props) => ({
 					winner: undefined,
-					endGame: true,
 					playerTurn: 1
 				}));
 				return null;
 			}
 			const winnerKey = winner === '1' ? 'player1Wins' : 'player2Wins';
-			this.setState((prevState, props) => ({
-				winner: winner,
-				endGame: true,
-				playerTurn: 1,
-				[winnerKey]: prevState[winnerKey] + 1
-			}));
+			if (this.state[winnerKey] === 2) {
+				this.setState((prevState, props) => ({
+					winner: winner,
+					playerTurn: 1,
+					[winnerKey]: prevState[winnerKey] + 1,
+					endGame: true
+				}));
+			} else {
+				this.setState((prevState, props) => ({
+					winner: winner,
+					playerTurn: 1,
+					[winnerKey]: prevState[winnerKey] + 1
+				}));
+			}
 		}
 	};
 
@@ -94,7 +101,7 @@ export default class Game extends Component {
 				<header className='game-header'>
 					<h1>Game of Drones</h1>
 				</header>
-				<Results
+				<Score
 					player1={this.state.player1Wins}
 					player2={this.state.player2Wins}
 				/>
