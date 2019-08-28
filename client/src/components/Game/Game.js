@@ -13,6 +13,7 @@ export default class Game extends Component {
 		player1Move: '',
 		player2Move: '',
 		playerTurn: 1,
+		winner: '',
 		endGame: 0
 	};
 
@@ -27,8 +28,32 @@ export default class Game extends Component {
 		if (this.state.playerTurn === 1) {
 			this.setState({ player1Move: obj, playerTurn: 2 });
 		} else {
-			this.setState({ player2Move: obj });
-			debugger;
+			this.setState({ player2Move: obj }, () => {
+				debugger;
+				const winner = this.selectWinner();
+				this.setState({ winner: winner, endGame: 1 });
+				debugger;
+			});
+		}
+	};
+
+	selectWinner = () => {
+		let winner;
+		console.log('entro');
+		const s = this.state;
+		if (s.player1Move === s.player2Move) return undefined;
+		if (s.player1Move === 'rock' && s.player2Move === 'sissors') {
+			return '1';
+		} else if (s.player1Move === 'rock' && s.player2Move === 'paper') {
+			return '2';
+		} else if (s.player1Move === 'paper' && s.player2Move === 'rock') {
+			return '1';
+		} else if (s.player1Move === 'paper' && s.player2Move === 'sissors') {
+			return '2';
+		} else if (s.player1Move === 'sissors' && s.player2Move === 'paper') {
+			return '1';
+		} else if (s.player1Move === 'sissors' && s.player2Move === 'rock') {
+			return '2';
 		}
 	};
 
@@ -53,6 +78,7 @@ export default class Game extends Component {
 				/>
 			</>
 		);
+
 		return (
 			<div className='game-board'>
 				<header className='game-header'>
