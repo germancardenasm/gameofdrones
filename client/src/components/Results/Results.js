@@ -7,7 +7,7 @@ const Results = props => {
 		<div className='results'>
 			<h3>We have a WINNER!!</h3>
 			<p> {props.winner} is the new EMPEROR!</p>
-			<Button>Play Again</Button>
+			<Button click={props.click}>Play Again</Button>
 		</div>
 	);
 };

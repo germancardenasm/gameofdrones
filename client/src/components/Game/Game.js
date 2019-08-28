@@ -3,22 +3,11 @@ import PanelPlayer from '../PlayerPanel/PlayerPanel';
 import Score from '../Score/Score';
 import PlayersForm from '../PlayersForm/PlayersForm';
 import Results from '../Results/Results';
-import { players } from '../../assets/config';
+import { initialState } from '../../assets/config';
 import './Game.css';
 
 export default class Game extends Component {
-	state = {
-		start: true,
-		player1: 'German',
-		player2: 'Paola',
-		player1Move: '',
-		player2Move: '',
-		player1Wins: 0,
-		player2Wins: 0,
-		playerTurn: 1,
-		winner: '',
-		endGame: false
-	};
+	state = initialState;
 
 	onChangeInput = props => {
 		this.setState({ [props.player]: props.value });
@@ -26,6 +15,12 @@ export default class Game extends Component {
 	onStartGame = () => {
 		this.setState({ start: false });
 	};
+
+	onRestartGame = () => {
+		debugger;
+		this.setState(initialState);
+	};
+
 	onClickObject = obj => {
 		if (this.state.playerTurn === 1) {
 			this.setState({ player1Move: obj, playerTurn: 2 });
@@ -58,7 +53,7 @@ export default class Game extends Component {
 
 	selectWinner = (player1Move, player2Move) => {
 		let winner;
-		console.log('entro');
+
 		if (player1Move === player2Move) return undefined;
 		if (player1Move === 'rock' && player2Move === 'sissors') {
 			return '1';
@@ -102,7 +97,9 @@ export default class Game extends Component {
 				this.state.winner === 1
 					? this.state.player1
 					: this.state.player2;
-			mainContent = <Results winner={winner}></Results>;
+			mainContent = (
+				<Results winner={winner} click={this.onRestartGame}></Results>
+			);
 		}
 
 		return (

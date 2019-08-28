@@ -34,7 +34,7 @@ const PlayersForm = props => {
 					}
 				/>
 			</div>
-			<Button start={props.start}>START</Button>
+			<Button click={props.start}>START</Button>
 		</div>
 	);
 };
