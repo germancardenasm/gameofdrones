@@ -1,0 +1,21 @@
+.players-form {
+    width: 100%;
+}
+
+.players-form h5 {
+    font-size: 2rem;
+}
+
+.players-form>div {
+    margin: 1rem auto;
+}
+
+.players-form span {
+    font-size: 1.2rem;
+}
+
+.players-form input {
+    height: 40px;
+    width: 250px;
+    margin: 0 1rem;
+}
