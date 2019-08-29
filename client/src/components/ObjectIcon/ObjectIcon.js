@@ -11,7 +11,7 @@ const ObjectIcon = props => {
 
 	return (
 		<div id={props.id} className={objClassName} onClick={props.click}>
-			<img src={props.image} />
+			<img src={props.image} alt={props.obj} />
 		</div>
 	);
 };

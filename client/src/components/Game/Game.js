@@ -5,6 +5,7 @@ import PlayersForm from '../PlayersForm/PlayersForm';
 import Results from '../Results/Results';
 import { initialState } from '../../assets/config';
 import './Game.css';
+import Round from '../Round/Round';
 
 export default class Game extends Component {
 	state = initialState;
@@ -17,47 +18,57 @@ export default class Game extends Component {
 	};
 
 	onRestartGame = () => {
-		debugger;
 		this.setState(initialState);
 	};
 
 	onClickObject = obj => {
-		this.setState({ player1Move: obj, playerTurn: 2 });
+		if (this.state.playerTurn === 1 && obj.panel === 'panel1')
+			this.setState({ player1Move: obj.object });
+		else if (this.state.playerTurn === 2 && obj.panel === 'panel2') {
+			this.setState({ player2Move: obj.object });
+		}
 	};
 
 	onSelectObject = obj => {
-		if (this.state.playerTurn === 1) {
-			this.setState({ player1Move: obj, playerTurn: 2 });
+		if (this.state.playerTurn === 1 && this.state.player1Move) {
+			this.setState({ playerTurn: 2 });
 		} else {
-			let winner = this.selectWinner(this.state.player1Move, obj);
+			if (!this.state.player2Move) return;
+			let winner = this.selectWinner(
+				this.state.player1Move,
+				this.state.player2Move
+			);
 			if (winner === undefined) {
 				this.setState((prevState, props) => ({
 					winner: undefined,
+					player1Move: '',
+					player2Move: '',
 					playerTurn: 1
 				}));
 				return null;
 			}
 			const winnerKey = winner === '1' ? 'player1Wins' : 'player2Wins';
+			//If one player won
 			if (this.state[winnerKey] === 2) {
 				this.setState((prevState, props) => ({
 					winner: winner,
-					playerTurn: 1,
 					[winnerKey]: prevState[winnerKey] + 1,
 					endGame: true
 				}));
 			} else {
 				this.setState((prevState, props) => ({
 					winner: winner,
+					player1Move: '',
+					player2Move: '',
 					playerTurn: 1,
-					[winnerKey]: prevState[winnerKey] + 1
+					[winnerKey]: prevState[winnerKey] + 1,
+					round: prevState.round + 1
 				}));
 			}
 		}
 	};
 
 	selectWinner = (player1Move, player2Move) => {
-		let winner;
-
 		if (player1Move === player2Move) return undefined;
 		if (player1Move === 'rock' && player2Move === 'sissors') {
 			return '1';
@@ -85,22 +96,28 @@ export default class Game extends Component {
 			<>
 				<PanelPlayer
 					id='panel1'
+					pid='1'
 					player={this.state.player1}
 					objSelected={this.state.player1Move}
 					click={this.onClickObject}
+					clickSelectButton={this.onSelectObject}
+					turn={this.state.playerTurn}
 				/>
 				<PanelPlayer
 					id='panel2'
+					pid='2'
 					player={this.state.player2}
 					objSelected={this.state.player2Move}
 					click={this.onClickObject}
+					clickSelectButton={this.onSelectObject}
+					turn={this.state.playerTurn}
 				/>
 			</>
 		);
 
 		if (this.state.endGame) {
 			const winner =
-				this.state.winner === 1
+				this.state.winner === '1'
 					? this.state.player1
 					: this.state.player2;
 			mainContent = (
@@ -113,6 +130,7 @@ export default class Game extends Component {
 				<header className='game-header'>
 					<h1>Game of Drones</h1>
 				</header>
+				<Round round={this.state.round} />
 				<Score
 					player1={this.state.player1Wins}
 					player2={this.state.player2Wins}
