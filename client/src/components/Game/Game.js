@@ -16,7 +16,27 @@ export default class Game extends Component {
 		this.setState({ [props.player]: props.value });
 	};
 	onStartGame = () => {
-		this.setState({ start: false });
+		const data = {
+			player1: this.state.player1,
+			player2: this.state.player2
+		};
+
+		fetch('http://localhost:4000/battle', {
+			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				player1: this.state.player1,
+				player2: this.state.player2
+			})
+		})
+			.then(response => response.json())
+			.then(response => {
+				console.log('[front] REPONSE START GAME', response);
+				this.setState({ start: false, battleId: response.id });
+			});
 	};
 
 	onRestartGame = () => {
@@ -31,7 +51,7 @@ export default class Game extends Component {
 		}
 	};
 
-	onSelectObject = obj => {
+	onSelectObject = async obj => {
 		//Pass turn to player 2
 		if (this.state.playerTurn === 1 && this.state.player1Move) {
 			this.setState({ playerTurn: 2 });
@@ -39,13 +59,23 @@ export default class Game extends Component {
 			//Validate player 2 select an option before pressing OK
 			if (!this.state.player2Move) return;
 			//Select Winner
-
-			let winner = this.selectWinner(
-				this.state.player1Move,
-				this.state.player2Move
-			);
+			const response = await fetch('http://localhost:4000/selectwinner', {
+				method: 'POST',
+				headers: {
+					Accept: 'application/json',
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					battleId: this.state.battleId,
+					player1Move: this.state.player1Move,
+					player2Move: this.state.player2Move
+				})
+			});
+			let data = await response.json();
+			const { playerWinner, winner } = data;
+			let score = data.result;
 			//If both selected same object , there is no winner
-			if (winner === undefined) {
+			if (winner == 0) {
 				this.setState(
 					(prevState, props) => ({
 						playerTurn: 0
@@ -64,13 +94,12 @@ export default class Game extends Component {
 				return null;
 			} else {
 				//If a player won the match, show objects selected and show the winner
-				const winnerKey =
-					winner === '1' ? 'player1Wins' : 'player2Wins';
-				if (this.state[winnerKey] === 2) {
+				const winnerKey = `player${winner}Wins`;
+				if (data.endGame) {
 					this.setState(
 						(prevState, props) => {
 							return {
-								winner: winner,
+								winner: playerWinner,
 								[winnerKey]: prevState[winnerKey] + 1,
 								record: prevState.record.concat(winner),
 								playerTurn: 0
@@ -86,20 +115,20 @@ export default class Game extends Component {
 					);
 				} else {
 					/* If a player won Round,show the selected objects, then next round*/
-					fetch();
+
 					this.setState(
 						(prevState, props) => {
 							return {
 								playerTurn: 0,
 								[winnerKey]: prevState[winnerKey] + 1,
-								record: prevState.record.concat(winner)
+								record: prevState.record.concat(winnerKey)
 							};
 						},
 						() => {
 							setTimeout(() => {
 								this.setState((prevState, props) => {
 									return {
-										winner: winner,
+										winner: playerWinner,
 										player1Move: '',
 										player2Move: '',
 										playerTurn: 1,
@@ -111,23 +140,6 @@ export default class Game extends Component {
 					);
 				}
 			}
-		}
-	};
-
-	selectWinner = (player1Move, player2Move) => {
-		if (player1Move === player2Move) return undefined;
-		if (player1Move === 'rock' && player2Move === 'sissors') {
-			return '1';
-		} else if (player1Move === 'rock' && player2Move === 'paper') {
-			return '2';
-		} else if (player1Move === 'paper' && player2Move === 'rock') {
-			return '1';
-		} else if (player1Move === 'paper' && player2Move === 'sissors') {
-			return '2';
-		} else if (player1Move === 'sissors' && player2Move === 'paper') {
-			return '1';
-		} else if (player1Move === 'sissors' && player2Move === 'rock') {
-			return '2';
 		}
 	};
 
@@ -168,7 +180,7 @@ export default class Game extends Component {
 
 		if (this.state.endGame) {
 			const winner =
-				this.state.winner === '1'
+				this.state.winner === '1' || this.state.winner === 1
 					? this.state.player1
 					: this.state.player2;
 			mainContent = (

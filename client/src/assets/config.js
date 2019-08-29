@@ -16,7 +16,8 @@ export const initialState = {
 	round: 1,
 	winner: '',
 	endGame: false,
-	record: []
+	record: [],
+	battleId: ''
 };
 
 export const PLAYERS = 2;

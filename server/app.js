@@ -17,14 +17,13 @@ app.use(
 	})
 );
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, '/public/')));
 app.get('/', (req, res) => {
 	res.send('Hello World');
 });
-app.get('/battle', controllerGame.saveBattle);
-app.get('/selectWinner', controllerGame.selectWinner);
-app.get('/saveRecords', controllerGame.saveRecords);
-app.get('/getRecords', controllerGame.getRecords);
+app.post('/battle', controllerGame.saveBattle);
+app.post('/selectwinner', controllerGame.selectWinner);
+app.post('/saverecords', controllerGame.saveRecords);
+app.get('/getrecords', controllerGame.getRecords);
 app.listen(PORT, () => {
 	debug('Listening at port ', chalk.green(PORT));
 });
