@@ -39,31 +39,60 @@ export default class Game extends Component {
 				this.state.player2Move
 			);
 			if (winner === undefined) {
-				this.setState((prevState, props) => ({
-					winner: undefined,
-					player1Move: '',
-					player2Move: '',
-					playerTurn: 1
-				}));
+				this.setState(
+					(prevState, props) => ({
+						playerTurn: 0
+					}),
+					() => {
+						setTimeout(() => {
+							this.setState({
+								winner: undefined,
+								player1Move: '',
+								player2Move: '',
+								playerTurn: 1
+							});
+						}, 1500);
+					}
+				);
 				return null;
-			}
-			const winnerKey = winner === '1' ? 'player1Wins' : 'player2Wins';
-			//If one player won
-			if (this.state[winnerKey] === 2) {
-				this.setState((prevState, props) => ({
-					winner: winner,
-					[winnerKey]: prevState[winnerKey] + 1,
-					endGame: true
-				}));
 			} else {
-				this.setState((prevState, props) => ({
-					winner: winner,
-					player1Move: '',
-					player2Move: '',
-					playerTurn: 1,
-					[winnerKey]: prevState[winnerKey] + 1,
-					round: prevState.round + 1
-				}));
+				const winnerKey =
+					winner === '1' ? 'player1Wins' : 'player2Wins';
+				//If one player won
+				if (this.state[winnerKey] === 2) {
+					this.setState(
+						(prevState, props) => ({
+							winner: winner,
+							[winnerKey]: prevState[winnerKey] + 1,
+							playerTurn: 0
+						}),
+						() => {
+							setTimeout(() => {
+								this.setState({
+									endGame: true
+								});
+							}, 1500);
+						}
+					);
+				} else {
+					this.setState(
+						(prevState, props) => ({
+							playerTurn: 0
+						}),
+						() => {
+							setTimeout(() => {
+								this.setState((prevState, props) => ({
+									winner: winner,
+									player1Move: '',
+									player2Move: '',
+									playerTurn: 1,
+									[winnerKey]: prevState[winnerKey] + 1,
+									round: prevState.round + 1
+								}));
+							}, 1500);
+						}
+					);
+				}
 			}
 		}
 	};

@@ -9,7 +9,9 @@ export default function PlayerPanel(props) {
 	const Image = 1;
 	return (
 		<div className='player-panel'>
-			{!(props.turn == props.pid) && <div className='overlay'></div>}
+			{!(props.turn == props.pid || props.turn == 0) && (
+				<div className='overlay'></div>
+			)}
 			<div id={props.id}>
 				<h4>{props.player}</h4>
 				{objects.map(img => (
