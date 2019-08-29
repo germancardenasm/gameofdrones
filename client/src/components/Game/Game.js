@@ -39,6 +39,7 @@ export default class Game extends Component {
 			//Validate player 2 select an option before pressing OK
 			if (!this.state.player2Move) return;
 			//Select Winner
+
 			let winner = this.selectWinner(
 				this.state.player1Move,
 				this.state.player2Move
@@ -85,6 +86,7 @@ export default class Game extends Component {
 					);
 				} else {
 					/* If a player won Round,show the selected objects, then next round*/
+					fetch();
 					this.setState(
 						(prevState, props) => {
 							return {
