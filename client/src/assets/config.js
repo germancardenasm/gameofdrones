@@ -4,8 +4,6 @@ import sissors from './images/sissors.png';
 
 export const objects = [['rock', rock], ['paper', paper], ['sissors', sissors]];
 
-export const players = 2;
-
 export const initialState = {
 	start: true,
 	player1: 'German',
@@ -20,3 +18,7 @@ export const initialState = {
 	endGame: false,
 	record: []
 };
+
+export const PLAYERS = 2;
+
+export const DELAY = 1200;

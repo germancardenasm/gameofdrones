@@ -4,6 +4,7 @@ import Score from '../Score/Score';
 import PlayersForm from '../PlayersForm/PlayersForm';
 import Results from '../Results/Results';
 import { initialState } from '../../assets/config';
+import { DELAY } from '../../assets/config';
 import './Game.css';
 import Round from '../Round/Round';
 import Records from '../Records/Records';
@@ -56,7 +57,7 @@ export default class Game extends Component {
 								player2Move: '',
 								playerTurn: 1
 							});
-						}, 1500);
+						}, DELAY);
 					}
 				);
 				return null;
@@ -70,6 +71,7 @@ export default class Game extends Component {
 							return {
 								winner: winner,
 								[winnerKey]: prevState[winnerKey] + 1,
+								record: prevState.record.concat(winner),
 								playerTurn: 0
 							};
 						},
@@ -78,14 +80,13 @@ export default class Game extends Component {
 								this.setState({
 									endGame: true
 								});
-							}, 1500);
+							}, DELAY);
 						}
 					);
 				} else {
 					/* If a player won Round,show the selected objects, then next round*/
 					this.setState(
 						(prevState, props) => {
-							debugger;
 							return {
 								playerTurn: 0,
 								[winnerKey]: prevState[winnerKey] + 1,
@@ -103,7 +104,7 @@ export default class Game extends Component {
 										round: prevState.round + 1
 									};
 								});
-							}, 1500);
+							}, DELAY);
 						}
 					);
 				}
