@@ -4,7 +4,8 @@ import './Records.css';
 const Records = props => {
 	const records = props.record.map((rec, index) => {
 		let player = props.player1;
-		if (rec === '2') player = props.player2;
+		if (rec === '2' || rec === 2 || rec === 'player2Wins')
+			player = props.player2;
 		return (
 			<tr key={index}>
 				<td>{index + 1}</td>

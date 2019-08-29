@@ -1,7 +1,7 @@
 .game-board {
     position: relative;
     border: 1px solid black;
-    max-width: 600px;
+    max-width: 1200px;
     margin: 0 auto;
     height: 100%;
 }
