@@ -17,5 +17,6 @@ export const initialState = {
 	playerTurn: 1,
 	round: 1,
 	winner: '',
-	endGame: false
+	endGame: false,
+	records: []
 };

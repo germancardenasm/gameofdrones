@@ -6,6 +6,7 @@ import Results from '../Results/Results';
 import { initialState } from '../../assets/config';
 import './Game.css';
 import Round from '../Round/Round';
+import Records from '../Records/Records';
 
 export default class Game extends Component {
 	state = initialState;
@@ -30,14 +31,18 @@ export default class Game extends Component {
 	};
 
 	onSelectObject = obj => {
+		//Pass turn to player 2
 		if (this.state.playerTurn === 1 && this.state.player1Move) {
 			this.setState({ playerTurn: 2 });
 		} else {
+			//Validate player 2 select an option before pressing OK
 			if (!this.state.player2Move) return;
+			//Select Winner
 			let winner = this.selectWinner(
 				this.state.player1Move,
 				this.state.player2Move
 			);
+			//If both selected same object , there is no winner
 			if (winner === undefined) {
 				this.setState(
 					(prevState, props) => ({
@@ -56,9 +61,9 @@ export default class Game extends Component {
 				);
 				return null;
 			} else {
+				//If a player won the match, show objects selected and show the winner
 				const winnerKey =
 					winner === '1' ? 'player1Wins' : 'player2Wins';
-				//If one player won
 				if (this.state[winnerKey] === 2) {
 					this.setState(
 						(prevState, props) => ({
@@ -75,9 +80,12 @@ export default class Game extends Component {
 						}
 					);
 				} else {
+					/* If a player won Round,show the selected objects, then next round*/
 					this.setState(
 						(prevState, props) => ({
-							playerTurn: 0
+							playerTurn: 0,
+							[winnerKey]: prevState[winnerKey] + 1,
+							record: prevState.records.push(winner)
 						}),
 						() => {
 							setTimeout(() => {
@@ -86,7 +94,6 @@ export default class Game extends Component {
 									player1Move: '',
 									player2Move: '',
 									playerTurn: 1,
-									[winnerKey]: prevState[winnerKey] + 1,
 									round: prevState.round + 1
 								}));
 							}, 1500);
@@ -141,6 +148,13 @@ export default class Game extends Component {
 					clickSelectButton={this.onSelectObject}
 					turn={this.state.playerTurn}
 				/>
+				<Records
+					records={this.state.records}
+					player1={this.state.player1}
+					player2={this.state.player2}
+				>
+					RECORDS
+				</Records>
 			</>
 		);
 
