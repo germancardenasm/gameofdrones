@@ -9,7 +9,7 @@ import Round from '../Round/Round';
 import Records from '../Records/Records';
 
 export default class Game extends Component {
-	state = initialState;
+	state = { ...initialState };
 
 	onChangeInput = props => {
 		this.setState({ [props.player]: props.value });
@@ -19,7 +19,7 @@ export default class Game extends Component {
 	};
 
 	onRestartGame = () => {
-		this.setState(initialState);
+		this.setState({ ...initialState });
 	};
 
 	onClickObject = obj => {
@@ -66,11 +66,13 @@ export default class Game extends Component {
 					winner === '1' ? 'player1Wins' : 'player2Wins';
 				if (this.state[winnerKey] === 2) {
 					this.setState(
-						(prevState, props) => ({
-							winner: winner,
-							[winnerKey]: prevState[winnerKey] + 1,
-							playerTurn: 0
-						}),
+						(prevState, props) => {
+							return {
+								winner: winner,
+								[winnerKey]: prevState[winnerKey] + 1,
+								playerTurn: 0
+							};
+						},
 						() => {
 							setTimeout(() => {
 								this.setState({
@@ -82,20 +84,25 @@ export default class Game extends Component {
 				} else {
 					/* If a player won Round,show the selected objects, then next round*/
 					this.setState(
-						(prevState, props) => ({
-							playerTurn: 0,
-							[winnerKey]: prevState[winnerKey] + 1,
-							record: prevState.records.push(winner)
-						}),
+						(prevState, props) => {
+							debugger;
+							return {
+								playerTurn: 0,
+								[winnerKey]: prevState[winnerKey] + 1,
+								record: prevState.record.concat(winner)
+							};
+						},
 						() => {
 							setTimeout(() => {
-								this.setState((prevState, props) => ({
-									winner: winner,
-									player1Move: '',
-									player2Move: '',
-									playerTurn: 1,
-									round: prevState.round + 1
-								}));
+								this.setState((prevState, props) => {
+									return {
+										winner: winner,
+										player1Move: '',
+										player2Move: '',
+										playerTurn: 1,
+										round: prevState.round + 1
+									};
+								});
 							}, 1500);
 						}
 					);
@@ -135,26 +142,24 @@ export default class Game extends Component {
 					pid='1'
 					player={this.state.player1}
 					objSelected={this.state.player1Move}
+					turn={this.state.playerTurn}
 					click={this.onClickObject}
 					clickSelectButton={this.onSelectObject}
-					turn={this.state.playerTurn}
 				/>
 				<PanelPlayer
 					id='panel2'
 					pid='2'
 					player={this.state.player2}
 					objSelected={this.state.player2Move}
+					turn={this.state.playerTurn}
 					click={this.onClickObject}
 					clickSelectButton={this.onSelectObject}
-					turn={this.state.playerTurn}
 				/>
 				<Records
-					records={this.state.records}
+					record={this.state.record}
 					player1={this.state.player1}
 					player2={this.state.player2}
-				>
-					RECORDS
-				</Records>
+				/>
 			</>
 		);
 

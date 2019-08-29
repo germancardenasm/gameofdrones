@@ -1,6 +1,4 @@
 import React from 'react';
-import paper from '../../assets/images/paper.png';
-
 import './ObjectIcon.css';
 
 const ObjectIcon = props => {

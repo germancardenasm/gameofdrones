@@ -18,5 +18,5 @@ export const initialState = {
 	round: 1,
 	winner: '',
 	endGame: false,
-	records: []
+	record: []
 };

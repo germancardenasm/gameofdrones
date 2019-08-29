@@ -2,11 +2,11 @@ import React from 'react';
 import './Records.css';
 
 const Records = props => {
-	const records = props.records.map((rec, index) => {
+	const records = props.record.map((rec, index) => {
 		let player = props.player1;
-		if (rec == 2) player = props.player2;
+		if (rec === '2') player = props.player2;
 		return (
-			<tr>
+			<tr key={index}>
 				<td>{index + 1}</td>
 				<td>{player}</td>
 			</tr>
