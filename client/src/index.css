@@ -13,6 +13,8 @@ body {
 #root {
   width: 100%;
   min-height: 100%;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(45deg, #4383c3AA 20%, #30b4cbAA 90%);
 }
 
 body {

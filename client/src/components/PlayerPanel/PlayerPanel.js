@@ -7,11 +7,12 @@ import { objects } from '../../assets/config';
 export default function PlayerPanel(props) {
 	const OBJ = 0;
 	const Image = 1;
+	const visibleClass = !(props.turn == props.pid || props.turn == 0)
+		? 'overlay visible'
+		: 'overlay';
 	return (
 		<div className='player-panel'>
-			{!(props.turn == props.pid || props.turn == 0) && (
-				<div className='overlay'></div>
-			)}
+			<div className={visibleClass}></div>
 			<div id={props.id}>
 				<h4>{props.player}</h4>
 				{objects.map(img => (

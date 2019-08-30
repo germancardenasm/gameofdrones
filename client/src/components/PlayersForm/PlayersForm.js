@@ -7,7 +7,7 @@ const PlayersForm = props => {
 		<div className='players-form'>
 			<h5>Enter player's Names</h5>
 			<div>
-				<span>Players 1</span>
+				<span>Player 1</span>
 				<input
 					id='player1'
 					type='text'
@@ -21,7 +21,7 @@ const PlayersForm = props => {
 				/>
 			</div>
 			<div>
-				<span>Players 2</span>
+				<span>Player 2</span>
 				<input
 					id='player2'
 					type='text'

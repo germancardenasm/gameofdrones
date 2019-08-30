@@ -1,17 +1,16 @@
 .records table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
-    margin: 1rem auto;
-    width: 80%;
+    margin: 1rem 0;
+    width: 50%;
 }
 
 .records td,
 th {
-    border: 1px solid #dddddd;
-    text-align: left;
+    text-align: center;
     padding: 8px;
 }
 
-.records tr:nth-child(even) {
-    background-color: #dddddd;
+.records tr:nth-child(1) {
+    border-bottom: 1px solid #dddddd;
 }

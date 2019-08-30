@@ -152,6 +152,11 @@ export default class Game extends Component {
 			/>
 		) : (
 			<>
+				<Round round={this.state.round} />
+				<Score
+					player1={this.state.player1Wins}
+					player2={this.state.player2Wins}
+				/>
 				<PanelPlayer
 					id='panel1'
 					pid='1'
@@ -193,11 +198,7 @@ export default class Game extends Component {
 				<header className='game-header'>
 					<h1>Game of Drones</h1>
 				</header>
-				<Round round={this.state.round} />
-				<Score
-					player1={this.state.player1Wins}
-					player2={this.state.player2Wins}
-				/>
+
 				<main>{mainContent}</main>
 			</div>
 		);

@@ -1,9 +1,16 @@
 .button {
-    width: 100px;
-    height: 40px;
-    padding: 5px;
-    border-radius: 5px;
-    font-weight: bold;
-    margin: 1rem auto;
-    display: block;
+	width: 100px;
+	height: 40px;
+	padding: 5px;
+	border-radius: 5px;
+	font-weight: bold;
+	margin: 1rem auto;
+	display: block;
+	font-size: 1rem;
+	cursor: pointer;
+	transition: all 0.3s;
+}
+
+.button:hover:enabled {
+	background: lightgrey;
 }

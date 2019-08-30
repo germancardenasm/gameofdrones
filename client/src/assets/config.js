@@ -6,8 +6,8 @@ export const objects = [['rock', rock], ['paper', paper], ['sissors', sissors]];
 
 export const initialState = {
 	start: true,
-	player1: 'German',
-	player2: 'Paola',
+	player1: '',
+	player2: '',
 	player1Move: '',
 	player2Move: '',
 	player1Wins: 0,
@@ -22,4 +22,4 @@ export const initialState = {
 
 export const PLAYERS = 2;
 
-export const DELAY = 1200;
+export const DELAY = 1500;

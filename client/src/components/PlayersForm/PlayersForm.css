@@ -3,7 +3,8 @@
 }
 
 .players-form h5 {
-    font-size: 2rem;
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
 }
 
 .players-form>div {
@@ -11,11 +12,16 @@
 }
 
 .players-form span {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    font-weight: bold;
 }
 
 .players-form input {
     height: 40px;
-    width: 250px;
+    max-width: 200px;
     margin: 0 1rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-family: inherit;
+    padding: 5px;
 }
