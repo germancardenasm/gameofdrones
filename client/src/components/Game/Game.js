@@ -34,7 +34,6 @@ export default class Game extends Component {
 		})
 			.then(response => response.json())
 			.then(response => {
-				console.log('[front] REPONSE START GAME', response);
 				this.setState({ start: false, battleId: response.id });
 			});
 	};

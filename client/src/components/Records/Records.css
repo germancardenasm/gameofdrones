@@ -2,7 +2,7 @@
     font-family: arial, sans-serif;
     border-collapse: collapse;
     margin: 1rem 0;
-    width: 50%;
+    width: 100%;
 }
 
 .records td,
@@ -13,4 +13,11 @@ th {
 
 .records tr:nth-child(1) {
     border-bottom: 1px solid #dddddd;
+}
+
+@media (min-width:500px) {
+    .records table {
+
+        width: 50%;
+    }
 }
