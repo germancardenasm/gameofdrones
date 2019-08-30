@@ -10,7 +10,7 @@ Clone this repository to your local host
 git clone https://github.com/germancardenasm/gameofdrones.git
 ```
 
-cd into the directory just created and install npm dependencies
+cd into the directory just created
 
 ```bash
 cd UruIT
