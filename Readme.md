@@ -2,7 +2,9 @@
 
 Coded by Germán Cárdenas M
 
-## Installation
+Open a terminal and import the SQL file
+
+## App Installation
 
 Clone this repository to your local host
 
@@ -30,6 +32,21 @@ cd ..
 cd server
 npm install
 ```
+
+##DB Installation
+Install MySQL, download and isntall the DB from [Here](https://dev.mysql.com/downloads/mysql/) in case you don have it already.
+Remember Username and password you generated to log into your MySQL.
+
+Open a terminal window and import the SQL file that you will find in the root folder of the project you just cloned.
+Please replace <user_name> with your own user name and provide your password when promted.
+
+```bash
+mysql -u <user_name> -p gameOfDrones < bd-structure.sql
+```
+
+##Configure DB credentials
+Edit the **Connection.js** file that you will find in the `./server/connection/` folder of the clone repository. Replace the username and password with your own.
+Save the file.
 
 ## Run app
 

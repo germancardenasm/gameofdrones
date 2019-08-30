@@ -18,16 +18,24 @@
 --
 -- Table structure for table `battle`
 --
+DROP DATABASE IF EXISTS `gameOfDrones`;
+CREATE DATABASE `gameOfDrones`;
+USE `gameOfDrones`;
 
 DROP TABLE IF EXISTS `battle`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `battle` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `player1` varchar(45) NOT NULL,
-  `player2` varchar(45) DEFAULT NULL,
+CREATE TABLE `battle`
+(
+  `id` int
+(11) NOT NULL AUTO_INCREMENT,
+  `player1` varchar
+(45) NOT NULL,
+  `player2` varchar
+(45) DEFAULT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY
+(`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -38,11 +46,16 @@ CREATE TABLE `battle` (
 DROP TABLE IF EXISTS `rounds`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `rounds` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `battleId` int(11) DEFAULT NULL,
-  `winner` varchar(1) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+CREATE TABLE `rounds`
+(
+  `id` int
+(11) NOT NULL AUTO_INCREMENT,
+  `battleId` int
+(11) DEFAULT NULL,
+  `winner` varchar
+(1) DEFAULT NULL,
+  PRIMARY KEY
+(`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
