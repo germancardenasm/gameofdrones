@@ -45,7 +45,7 @@ Please replace <user_name> with your own user name and provide your password whe
 mysql -u <user_name> -p gameOfDrones < bd-structure.sql
 ```
 
-##Configure DB credentials
+## Configure DB credentials
 Edit the **Connection.js** file that you will find in the `./server/connection/` folder of the clone repository. Replace the username and password with your own.
 Save the file.
 
