@@ -33,8 +33,9 @@ cd server
 npm install
 ```
 
-##DB Installation
-Install MySQL, download and isntall the DB from [Here](https://dev.mysql.com/downloads/mysql/) in case you don have it already.
+## DB Installation
+
+Install MySQL, download and install the DB from [here](https://dev.mysql.com/downloads/mysql/) in case you don have it already.
 Remember Username and password you generated to log into your MySQL.
 
 Open a terminal window and import the SQL file that you will find in the root folder of the project you just cloned.
